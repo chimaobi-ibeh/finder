@@ -1,65 +1,36 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import Layout from './components/Layout';
+import { AuthProvider } from './context/AuthContext';
+import NavBar from './components/NavBar';
 import Landing from './components/Landing';
-import Home from './components/Home';
-import Listings from './components/Listings';
-import Admin from './components/Admin';
 import Register from './components/Register';
 import Login from './components/Login';
+import ForgotPassword from './components/ForgotPassword'; // Import the new component
+import Listings from './components/Listings';
+import ListingDetails from './components/ListingsDetails';
 import ManageListings from './components/ManageListings';
-import KYC from './components/KYC';
 import Profile from './components/Profile';
-import ProtectedRoute from './components/ProtectedRoute';
-
-// Wrapper component to decide between Landing and Home based on auth status
-const RootRoute = () => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  return user ? <Home /> : <Landing />;
-};
+import KycForm from './components/KycForm';
+import AdminDashboard from './components/AdminDashboard';
+import PrivateRoute from './components/PrivateRoute';
 
 export default function App() {
   return (
     <AuthProvider>
       <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<RootRoute />} />
-            <Route path="/listings" element={
-              <ProtectedRoute allowedRoles={['buyer']}>
-                <Listings />
-              </ProtectedRoute>
-            } />
-            <Route path="/manage-listings" element={
-              <ProtectedRoute allowedRoles={['realtor']}>
-                <ManageListings />
-              </ProtectedRoute>
-            } />
-            <Route path="/kyc" element={
-              <ProtectedRoute allowedRoles={['realtor']}>
-                <KYC />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin" element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <Admin />
-              </ProtectedRoute>
-            } />
-            <Route path="/profile" element={
-              <ProtectedRoute allowedRoles={['buyer', 'realtor', 'admin']}>
-                <Profile />
-              </ProtectedRoute>
-            } />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </Layout>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Add the new route */}
+          <Route path="/listings" element={<PrivateRoute element={<Listings />} roles={['buyer']} />} />
+          <Route path="/listing/:id" element={<PrivateRoute element={<ListingDetails />} roles={['buyer']} />} />
+          <Route path="/manage-listings" element={<PrivateRoute element={<ManageListings />} roles={['realtor']} />} />
+          <Route path="/profile" element={<PrivateRoute element={<Profile />} roles={['buyer', 'realtor', 'admin']} />} />
+          <Route path="/kyc" element={<PrivateRoute element={<KycForm />} roles={['realtor']} />} />
+          <Route path="/admin" element={<PrivateRoute element={<AdminDashboard />} roles={['admin']} />} />
+        </Routes>
       </Router>
     </AuthProvider>
   );

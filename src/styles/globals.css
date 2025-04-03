@@ -11,3 +11,34 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
 }
+
+/* Custom styles for react-slick arrows */
+.slick-prev,
+.slick-next {
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 24px;
+  color: #1D4ED8; /* Primary color */
+}
+
+.slick-prev {
+  left: -50px;
+}
+
+.slick-next {
+  right: -50px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #1D4ED8; /* Primary color for active dot */
+}

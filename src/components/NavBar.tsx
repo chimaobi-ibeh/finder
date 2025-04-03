@@ -18,20 +18,20 @@ export default function NavBar() {
 
   return (
     <nav className="bg-primary text-white py-4">
-      <div className="container mx-auto px-6 md:px-10 flex justify-between items-center">
+      <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold">fiNder</Link>
         <div className="space-x-6">
           {isLandingPage ? (
             <>
               <Link
                 to="/register"
-                className="relative inline-block text-lg font-medium transition-all duration-300 transform hover:scale-110 hover:bg-white hover:text-primary hover:px-4 hover:py-2 hover:rounded-lg"
+                className="relative inline-block text-lg font-medium transition-all duration-300 hover:bg-white hover:text-primary hover:rounded-full px-4 py-2"
               >
                 Register
               </Link>
               <Link
                 to="/login"
-                className="relative inline-block text-lg font-medium transition-all duration-300 transform hover:scale-110 hover:bg-white hover:text-primary hover:px-4 hover:py-2 hover:rounded-lg"
+                className="relative inline-block text-lg font-medium transition-all duration-300 hover:bg-white hover:text-primary hover:rounded-full px-4 py-2"
               >
                 Login
               </Link>
@@ -71,13 +71,13 @@ export default function NavBar() {
                 <>
                   <Link
                     to="/register"
-                    className="relative inline-block text-lg font-medium transition-all duration-300 transform hover:scale-110 hover:bg-white hover:text-primary hover:px-4 hover:py-2 hover:rounded-lg"
+                    className="relative inline-block text-lg font-medium transition-all duration-300 hover:bg-white hover:text-primary hover:rounded-full px-4 py-2"
                   >
                     Register
                   </Link>
                   <Link
                     to="/login"
-                    className="relative inline-block text-lg font-medium transition-all duration-300 transform hover:scale-110 hover:bg-white hover:text-primary hover:px-4 hover:py-2 hover:rounded-lg"
+                    className="relative inline-block text-lg font-medium transition-all duration-300 hover:bg-white hover:text-primary hover:rounded-full px-4 py-2"
                   >
                     Login
                   </Link>

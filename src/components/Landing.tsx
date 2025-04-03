@@ -15,11 +15,6 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
 };
 
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.8 } },
-};
-
 // Carousel settings
 const carouselSettings = {
   dots: true,
@@ -29,6 +24,9 @@ const carouselSettings = {
   slidesToScroll: 1,
   autoplay: true,
   autoplaySpeed: 3000,
+  arrows: true, // Enable arrows
+  prevArrow: <button className="slick-prev slick-arrow" style={{ color: '#1D4ED8' }} />,
+  nextArrow: <button className="slick-next slick-arrow" style={{ color: '#1D4ED8' }} />,
   responsive: [
     {
       breakpoint: 1024,
@@ -48,14 +46,14 @@ const carouselSettings = {
 export default function Landing() {
   const navigate = useNavigate();
 
-  // Mock featured listings
+  // Mock featured listings with dummy images from Unsplash
   const featuredListings = [
     {
       id: '1',
       title: '2-Bedroom Apartment in Lekki',
       price: 5000000,
       location: 'Lekki, Lagos',
-      image: 'https://via.placeholder.com/300',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
       isVerified: true,
     },
     {
@@ -63,7 +61,7 @@ export default function Landing() {
       title: 'Land in Ajah',
       price: 10000000,
       location: 'Ajah, Lagos',
-      image: 'https://via.placeholder.com/300',
+      image: 'https://images.unsplash.com/photo-1590386830925-029f4d693d0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
       isVerified: false,
     },
     {
@@ -71,7 +69,7 @@ export default function Landing() {
       title: 'Student Hostel near UNILAG',
       price: 500000,
       location: 'Yaba, Lagos',
-      image: 'https://via.placeholder.com/300',
+      image: 'https://images.unsplash.com/photo-1626178793926-22b28830aa30?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
       isVerified: true,
     },
     {
@@ -79,7 +77,39 @@ export default function Landing() {
       title: '3-Bedroom House in Ikeja',
       price: 8000000,
       location: 'Ikeja, Lagos',
-      image: 'https://via.placeholder.com/300',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+      isVerified: false,
+    },
+    {
+      id: '5',
+      title: 'Luxury Duplex in Victoria Island',
+      price: 15000000,
+      location: 'Victoria Island, Lagos',
+      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+      isVerified: true,
+    },
+    {
+      id: '6',
+      title: 'Car Rental Service in Abuja',
+      price: 200000,
+      location: 'Garki, Abuja',
+      image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+      isVerified: false,
+    },
+    {
+      id: '7',
+      title: 'Security Service for Events',
+      price: 300000,
+      location: 'Port Harcourt, Rivers',
+      image: 'https://images.unsplash.com/photo-1556740738-6b4d6b8b7b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+      isVerified: true,
+    },
+    {
+      id: '8',
+      title: '4-Bedroom Flat in Gwarinpa',
+      price: 6000000,
+      location: 'Gwarinpa, Abuja',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
       isVerified: false,
     },
   ];
@@ -87,6 +117,8 @@ export default function Landing() {
   // Scroll animation hooks for sections
   const [searchRef, searchInView] = useInView({ triggerOnce: true, threshold: 0.2 });
   const [listingsRef, listingsInView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [howItWorksRef, howItWorksInView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [testimonialsRef, testimonialsInView] = useInView({ triggerOnce: true, threshold: 0.2 });
   const [trustRef, trustInView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
@@ -119,7 +151,10 @@ export default function Landing() {
       </section>
 
       {/* Search Preview Section */}
-      <section className="py-16" ref={searchRef}>
+      <section
+        className="py-16"
+        ref={searchRef}
+      >
         <motion.div
           className="container mx-auto text-center"
           initial="hidden"
@@ -173,6 +208,72 @@ export default function Landing() {
             >
               See More Listings
             </Button>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-16 bg-gray-100" ref={howItWorksRef}>
+        <motion.div
+          className="container mx-auto text-center"
+          initial="hidden"
+          animate={howItWorksInView ? 'visible' : 'hidden'}
+          variants={fadeInUp}
+        >
+          <h2 className="text-4xl font-bold mb-8">How It Works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div
+              className="bg-white p-6 rounded-lg shadow-md transform transition-transform hover:scale-105"
+              whileHover={{ boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}
+            >
+              <div className="text-4xl mb-4">🔍</div>
+              <h3 className="text-xl font-semibold mb-2">1. Search</h3>
+              <p>Find properties, hostels, or services in your desired location with advanced filters.</p>
+            </motion.div>
+            <motion.div
+              className="bg-white p-6 rounded-lg shadow-md transform transition-transform hover:scale-105"
+              whileHover={{ boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}
+            >
+              <div className="text-4xl mb-4">💳</div>
+              <h3 className="text-xl font-semibold mb-2">2. Pay with Escrow</h3>
+              <p>Securely pay through our escrow system, ensuring safety for both parties.</p>
+            </motion.div>
+            <motion.div
+              className="bg-white p-6 rounded-lg shadow-md transform transition-transform hover:scale-105"
+              whileHover={{ boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}
+            >
+              <div className="text-4xl mb-4">🏠</div>
+              <h3 className="text-xl font-semibold mb-2">3. Move In</h3>
+              <p>Complete the transaction and move into your new property or use the service.</p>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-16 bg-white" ref={testimonialsRef}>
+        <motion.div
+          className="container mx-auto text-center"
+          initial="hidden"
+          animate={testimonialsInView ? 'visible' : 'hidden'}
+          variants={fadeInUp}
+        >
+          <h2 className="text-4xl font-bold mb-8">What Our Users Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <motion.div
+              className="bg-gray-50 p-6 rounded-lg shadow-md transform transition-transform hover:scale-105"
+              whileHover={{ boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}
+            >
+              <p className="italic text-gray-600">"I found my dream apartment in Lekki thanks to fiNder! The escrow system made the process so secure."</p>
+              <p className="mt-4 font-semibold text-gray-800">- Chinedu, Lagos</p>
+            </motion.div>
+            <motion.div
+              className="bg-gray-50 p-6 rounded-lg shadow-md transform transition-transform hover:scale-105"
+              whileHover={{ boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}
+            >
+              <p className="italic text-gray-600">"As a realtor, fiNder has helped me reach more clients. The KYC verification process was seamless."</p>
+              <p className="mt-4 font-semibold text-gray-800">- Aisha, Abuja</p>
+            </motion.div>
           </div>
         </motion.div>
       </section>
